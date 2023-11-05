@@ -38,13 +38,6 @@ val transformedUrl = transform(ipfsLink, fastestNode)
 // Use transformedUrl to fetch the data from IPFS
 ```
 
-### Setting a Preferred Gateway
-
-You can set a preferred IPFS gateway that the library should use for subsequent requests.
-
-```kotlin
-setPreferredGateway(context, "gateway.your-preferred-ipfs-provider.com")
-```
 
 ### Contribution
 
