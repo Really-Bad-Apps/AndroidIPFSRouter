@@ -21,10 +21,10 @@ suspend fun checkGateways() {
         // nodeList will contain the updated list of nodes with their health status and speed
     }
 }
-```
 
 // Retrieve the fastest gateway after performing the health check
 val fastestNode = getFastestNode()
+```
 
 ### Fetching Data from IPFS
 
