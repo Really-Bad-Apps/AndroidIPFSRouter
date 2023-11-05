@@ -30,17 +30,21 @@ val fastestNode = getFastestNode()
 
 To fetch data from IPFS using the fastest gateway, you first need to transform the IPFS link and then use that transformed URL to fetch the data.
 
+```kotlin
 val ipfsLink = "ipfs://your-content-hash"
 val fastestNode = getFastestNode()
 val transformedUrl = transform(ipfsLink, fastestNode)
 
 // Use transformedUrl to fetch the data from IPFS
+```
 
 ### Setting a Preferred Gateway
 
 You can set a preferred IPFS gateway that the library should use for subsequent requests.
 
+```kotlin
 setPreferredGateway(context, "gateway.your-preferred-ipfs-provider.com")
+```
 
 ### Contribution
 
