@@ -1,0 +1,17 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        // Add any other repositories you need plugins from.
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == 'com.android') {
+                useModule("com.android.tools.build:gradle:${requested.version}")
+            } else if (requested.id.namespace == 'org.jetbrains.kotlin') {
+                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
+            }
+        }
+    }
+}
