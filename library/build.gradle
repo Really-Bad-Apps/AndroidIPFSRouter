@@ -3,6 +3,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
 }
 
 android {
@@ -42,6 +43,26 @@ dependencies {
     implementation 'com.github.ipfs:java-ipfs-api:v1.2.0'
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
+
+
+    // Required for local unit tests
     testImplementation 'junit:junit:4.13.2'
+
+    // Required for instrumented tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+
+    // Optional - If you plan to use Kotlin in your tests
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+
+    // Optional - For Kotlin coroutines testing
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:x.x.x'
+
+    // Optional - Core library for Android Test
+    androidTestImplementation 'androidx.test:core-ktx:1.5.0'
+
+
 }
