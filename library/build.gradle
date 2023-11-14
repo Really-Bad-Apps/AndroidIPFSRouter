@@ -40,7 +40,7 @@ android {
 dependencies {
     implementation 'io.ktor:ktor-client-core:2.3.5'
     implementation 'io.ktor:ktor-client-okhttp:2.3.5'
-    implementation 'com.github.ipfs:java-ipfs-api:v1.2.0'
+    implementation 'com.github.ipld:java-cid:v1.3.8'
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
