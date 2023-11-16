@@ -6,13 +6,11 @@ plugins {
     id 'kotlin-android'
 }
 
-// Define the version name variable at the top of the file
-def AndroidIPFSRouterVersionName = "0.8" // Your library version
+// Define here so we can access with multiple scopes
+def AndroidIPFSRouterVersionName = "0.8"
 
 android {
-
     namespace 'com.reallybadapps.ipfsrouter'
-
     compileSdk 34
 
     defaultConfig {
@@ -70,7 +68,7 @@ dependencies {
 
 
 // Custom task to rename the AAR file with the version name
-task renameAarFile {
+tasks.register('renameAarFile') {
     doLast {
         def releaseAarFile = file("$buildDir/outputs/aar/AndroidIPFSRouter-release.aar")
         if (releaseAarFile.exists()) {
@@ -84,7 +82,7 @@ task renameAarFile {
     }
 }
 
-tasks.whenTaskAdded { task ->
+tasks.configureEach { task ->
     if (task.name == 'assembleRelease') {
         task.finalizedBy(renameAarFile)
     }
