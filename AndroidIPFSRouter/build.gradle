@@ -6,13 +6,12 @@ plugins {
     id 'kotlin-android'
 }
 
-
+// Define the version name variable at the top of the file
+def AndroidIPFSRouterVersionName = "0.8" // Your library version
 
 android {
 
-    android {
-        namespace 'com.reallybadapps.ipfsrouter'
-    }
+    namespace 'com.reallybadapps.ipfsrouter'
 
     compileSdk 34
 
@@ -20,7 +19,7 @@ android {
         minSdk 26
         targetSdk 33
         versionCode 1
-        versionName "0.8"
+        versionName AndroidIPFSRouterVersionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -67,4 +66,26 @@ dependencies {
 
     // Optional - Core library for Android Test
     androidTestImplementation 'androidx.test:core-ktx:1.5.0'
+}
+
+
+// Custom task to rename the AAR file with the version name
+task renameAarFile {
+    doLast {
+        def releaseAarFile = file("$buildDir/outputs/aar/AndroidIPFSRouter-release.aar")
+        if (releaseAarFile.exists()) {
+            def newFileName = "AndroidIPFSRouter-${AndroidIPFSRouterVersionName}.aar"
+            def newFile = new File(releaseAarFile.parent, newFileName)
+            releaseAarFile.renameTo(newFile)
+            println "Renamed AAR file to: ${newFile.name}"
+        } else {
+            println "Release AAR file not found!"
+        }
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'assembleRelease') {
+        task.finalizedBy(renameAarFile)
+    }
 }
