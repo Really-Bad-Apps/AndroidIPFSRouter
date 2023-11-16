@@ -66,7 +66,6 @@ dependencies {
     androidTestImplementation 'androidx.test:core-ktx:1.5.0'
 }
 
-
 // Custom task to rename the AAR file with the version name
 tasks.register('renameAarFile') {
     doLast {
@@ -84,6 +83,6 @@ tasks.register('renameAarFile') {
 
 tasks.configureEach { task ->
     if (task.name == 'assembleRelease') {
-        task.finalizedBy(renameAarFile)
+        task.finalizedBy tasks.named('renameAarFile')
     }
 }
