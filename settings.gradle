@@ -15,5 +15,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = 'IPFSRouter'
 
-include ':library'
-project(':library').projectDir = new File(settingsDir, 'library')
+include ':AndroidIPFSRouter'
+project(':AndroidIPFSRouter').projectDir = new File(settingsDir, 'AndroidIPFSRouter')
