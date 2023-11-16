@@ -1,0 +1,70 @@
+// library/module build file
+
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+}
+
+
+
+android {
+
+    android {
+        namespace 'com.reallybadapps.ipfsrouter'
+    }
+
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName "0.8"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'io.ktor:ktor-client-core:2.3.5'
+    implementation 'io.ktor:ktor-client-okhttp:2.3.5'
+    implementation 'com.github.ipld:java-cid:v1.3.8'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+
+    // Required for local unit tests
+    testImplementation 'junit:junit:4.13.2'
+
+    // Required for instrumented tests
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+
+    // Optional - If you plan to use Kotlin in your tests
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.9.20"
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-test:1.9.20"
+
+    // Optional - For Kotlin coroutines testing
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:x.x.x'
+
+    // Optional - Core library for Android Test
+    androidTestImplementation 'androidx.test:core-ktx:1.5.0'
+}
