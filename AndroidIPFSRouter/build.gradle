@@ -4,6 +4,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 // Define here so we can access with multiple scopes
@@ -43,7 +44,6 @@ android {
             withSourcesJar()
         }
     }
-
 }
 
 dependencies {
@@ -73,23 +73,30 @@ dependencies {
     androidTestImplementation 'androidx.test:core-ktx:1.5.0'
 }
 
-// Custom task to rename the AAR file with the version name
-tasks.register('renameAarFile') {
-    doLast {
-        def releaseAarFile = file("$buildDir/outputs/aar/AndroidIPFSRouter-release.aar")
-        if (releaseAarFile.exists()) {
-            def newFileName = "AndroidIPFSRouter-${AndroidIPFSRouterVersionName}.aar"
-            def newFile = new File(releaseAarFile.parent, newFileName)
-            releaseAarFile.renameTo(newFile)
-            println "Renamed AAR file to: ${newFile.name}"
-        } else {
-            println "Release AAR file not found!"
+// setup publishing to github package, after building the library,
+// use the following command to publish: "gradle publish"
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/really-bad-apps/androidipfsrouter")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GPR_USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GPR_TOKEN")
+            }
         }
     }
-}
 
-tasks.configureEach { task ->
-    if (task.name == 'assembleRelease') {
-        task.finalizedBy tasks.named('renameAarFile')
+    publications {
+        release(MavenPublication) {
+            // Adjusting the publication configuration for AAR
+            groupId = 'com.reallybadapps'
+            artifactId = 'ipfsrouter'
+            version = AndroidIPFSRouterVersionName
+
+            afterEvaluate {
+                from components.release
+            }
+        }
     }
 }
