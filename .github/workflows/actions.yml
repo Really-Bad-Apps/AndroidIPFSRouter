@@ -1,14 +1,40 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: Build and Release AAR
 on: [push]
+
 jobs:
-  check-bats-version:
+  build-publish-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+    - uses: actions/checkout@v2
+
+    # Build AAR
+    - name: Build AAR
+      run: gradle assembleRelease
+
+    # Publish AAR to GitHub Packages (if required)
+    # - name: Publish to GitHub Packages
+    #   run: <your-publish-command>
+
+    # Create a new release
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    # Upload AAR to the release
+    - name: Upload AAR to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./AndroidIPFSRouter/build/outputs/aar/AndroidIPFSRouter-release.aar
+        asset_name: AndroidIPFSRouter-release.aar
+        asset_content_type: application/octet-stream
 
