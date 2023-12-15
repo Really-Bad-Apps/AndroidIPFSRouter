@@ -3,6 +3,10 @@ on: [push]
 jobs:
   build-publish-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
