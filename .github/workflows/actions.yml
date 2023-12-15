@@ -1,4 +1,8 @@
-on: [push]
+name: Build and Release AAR
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build-publish-release:
