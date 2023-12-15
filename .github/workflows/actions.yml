@@ -4,8 +4,14 @@ on: [push]
 jobs:
   build-publish-release:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
+
+   steps:
+   - uses: actions/checkout@v3
+   - name: Set up JDK 17
+     uses: actions/setup-java@v3
+     with:
+       java-version: '17' # Specifies Java version 17
+       distribution: 'temurin' # Specifies the Java distribution (Eclipse Temurin in this case)
 
     # Build AAR
     - name: Build AAR
