@@ -8,7 +8,7 @@ plugins {
 }
 
 // Define here so we can access with multiple scopes
-def AndroidIPFSRouterVersionName = "0.8"
+def AndroidIPFSRouterVersionName = "0.8.2"
 
 android {
     namespace 'com.reallybadapps.ipfsrouter'
