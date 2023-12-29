@@ -27,7 +27,7 @@ Add the following dependency to your module's `build.gradle` file:
 
 ```groovy
     dependencies {
-        implementation 'com.github.Really-Bad-Apps:AndroidIPFSRouter:<LATEST_VERSION>'
+        implementation 'com.github.Really-Bad-Apps:AndroidIPFSRouter:<LATEST_RELEASE>'
     }
 ```
 
