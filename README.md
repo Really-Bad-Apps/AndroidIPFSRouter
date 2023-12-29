@@ -10,6 +10,31 @@ AndroidIPFSRouter is a lightweight Android library for interacting with the Inte
 - Handling of CID (Content Identifier) based links.
 - Easy integration into any Android project.
 
+## Installation
+
+### Gradle setup
+
+Add the following to your project's `build.gradle` file:
+
+```groovy
+	dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+Add the following to your module's `build.gradle` file:
+
+```groovy
+	dependencies {
+        implementation 'com.github.Really-Bad-Apps:AndroidIPFSRouter:<LATEST_VERSION>'
+    }
+```
+
+
 ## Usage
 
 ### Checking for the Fastest Gateway
