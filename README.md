@@ -14,22 +14,19 @@ AndroidIPFSRouter is a lightweight Android library for interacting with the Inte
 
 ### Gradle setup
 
-Add the following to your project's `build.gradle` file:
+Add jitpack.io to your repository to your project, for example:
 
 ```groovy
-	dependencyResolutionManagement {
-		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-		repositories {
-			mavenCentral()
-			maven { url 'https://jitpack.io' }
-		}
-	}
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
 ```
 
-Add the following to your module's `build.gradle` file:
+Add the following dependency to your module's `build.gradle` file:
 
 ```groovy
-	dependencies {
+    dependencies {
         implementation 'com.github.Really-Bad-Apps:AndroidIPFSRouter:<LATEST_VERSION>'
     }
 ```
