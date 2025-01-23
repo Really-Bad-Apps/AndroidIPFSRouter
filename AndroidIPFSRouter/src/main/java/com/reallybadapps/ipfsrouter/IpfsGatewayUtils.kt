@@ -8,9 +8,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
+import java.util.concurrent.CompletableFuture
+import kotlinx.coroutines.*
+import kotlinx.coroutines.future.future
 
 const val TEST_CID = "QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A"
 const val HOT_TIME_DISCOUNT: Long = 1000
@@ -80,6 +80,12 @@ fun getPreferredNode(context : Context) : Node {
         return nodeList.filter { it.host == preferredGateway }[0]
     }
 }
+
+/**
+ * Initiates a health check on a predefined list of nodes to update their status. The intent is to
+ * use this method if you are integrating the IPFS router into a java-based project.
+ */
+fun nodeCheckAsync(callback: NodeCheckCallback?): CompletableFuture<Unit> = GlobalScope.future { nodeCheck(callback) }
 
 /**
  * Initiates a health check on a predefined list of nodes to update their status.
