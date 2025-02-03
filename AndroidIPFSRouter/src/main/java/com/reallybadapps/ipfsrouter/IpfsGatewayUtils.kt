@@ -91,6 +91,7 @@ fun getPreferredNode(context : Context) : Node {
         } else {
             Log.e("IPFSRouter", "Preferred gateway not found, returning the fastest node.")
             return getFastestNode()
+        }
     }
 }
 
