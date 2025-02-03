@@ -160,7 +160,7 @@ suspend fun healthCheck(client: HttpClient, node: Node): Node {
         }
     } catch (e: Exception) {
         nodeHealthy = false
-        Log.w("IPFSRouter", "health check failed!", e)
+        Log.w("IPFSRouter", "Health check failed for ${node.host}")
     }
 
     var nodeSpeed = System.currentTimeMillis() - start
