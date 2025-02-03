@@ -37,7 +37,7 @@ data class Node(
 )
 
 /** List of default nodes. */
-val defaultNodeList: List<Node> = listOf(
+var defaultNodeList: List<Node> = listOf(
     Node(host = "w3s.link"),
     Node(host = "dweb.link"),
     Node(host = "cf-ipfs.com"),
@@ -53,6 +53,14 @@ typealias NodeCheckCallback = (List<Node>) -> Unit
 /** List of nodes. */
 var nodeList: List<Node> = emptyList()
 
+/**
+ * Adds a new node to the defaultNodeList.
+ *
+ * @param node The node to be added.
+ */
+fun addNode(node: Node) {
+    defaultNodeList = defaultNodeList + node
+}
 
 /**
  * Retrieves the fastest healthy node from the nodeList.
