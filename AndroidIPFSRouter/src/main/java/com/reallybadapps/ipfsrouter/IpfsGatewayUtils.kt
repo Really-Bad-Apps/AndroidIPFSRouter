@@ -85,7 +85,12 @@ fun getPreferredNode(context : Context) : Node {
         return getFastestNode()
     }
     else {
-        return nodeList.filter { it.host == preferredGateway }[0]
+        val preferredNode = nodeList.find { it.host == preferredGateway }
+        if (preferredNode != null) {
+            return preferredNode
+        } else {
+            Log.e("IPFSRouter", "Preferred gateway not found, returning the fastest node.")
+            return getFastestNode()
     }
 }
 
