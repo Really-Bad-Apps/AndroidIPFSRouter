@@ -38,13 +38,13 @@ data class Node(
 
 /** List of default nodes. */
 val defaultNodeList: List<Node> = listOf(
-    Node(host = "w3s.link", hot = true),
+    Node(host = "w3s.link"),
     Node(host = "dweb.link"),
     Node(host = "cf-ipfs.com"),
     Node(host = "4everland.io"),
     Node(host = "gw3.io"),
     Node(host = "storry.tv"),
-    Node(host = "nftstorage.link", hot = true)
+    Node(host = "nftstorage.link")
 )
 
 /** Callback type for nodeCheck. */
