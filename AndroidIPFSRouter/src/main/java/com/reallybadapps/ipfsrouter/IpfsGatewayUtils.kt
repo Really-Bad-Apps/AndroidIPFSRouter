@@ -22,7 +22,7 @@ const val KEY_PREFERRED_GATEWAY = "preferred_gateway"
  *
  * @property host The hostname of the node.
  * @property healthy Indicates if the node is healthy.
- * @property remote Indicates if the node is remote.
+ * @property useHttps Indicates if the node uses HTTPS.
  * @property hot Indicates if the node is hot.
  * @property port The port of the node. Can be null.
  * @property speed The speed of the node. Can be null.
@@ -30,7 +30,7 @@ const val KEY_PREFERRED_GATEWAY = "preferred_gateway"
 data class Node(
     val host: String,
     val healthy: Boolean = true,
-    val remote: Boolean = true,
+    val useHttps: Boolean = true,
     val hot: Boolean = false,
     val port: Int? = null,
     val speed: Long? = null
@@ -245,13 +245,13 @@ fun transform(inputUrl : String, node: Node) : String {
     }
 
     val nodeHost = node.port?.let { "${node.host}:$it" } ?: node.host
-    val nodeProtocol = if (node.remote) "https" else "http"
+    val nodeProtocol = if (node.useHttps) "https" else "http"
 
     if (protocol == "ipfs") {
         // When origin-based security is needed, a CIDv1 in a case-insensitive
         // encoding such as Base32 or Base36 should be used in the subdomain:
         // ex: https://<cidv1b32>.ipfs.<gateway-host>.tld/path/to/resource
-        if (node.remote && isBase32EncodedMultibase(hostname)) {
+        if (node.useHttps && isBase32EncodedMultibase(hostname)) {
             return "$nodeProtocol://$hostname.ipfs.$nodeHost$pathname".withQueryParams(search)
         }
 

@@ -36,15 +36,20 @@ Add the following dependency to your module's `build.gradle` file:
 
 ### Checking for the Fastest Gateway
 
-```kotllin
-// Perform a node check to update the health status and speed of the gateways
+```kotlin
+// For Kotlin coroutines usage:
 suspend fun checkGateways() {
     nodeCheck { nodeList ->
         // nodeList will contain the updated list of nodes with their health status and speed
     }
 }
 
-// Retrieve the fastest gateway after performing the health check
+// For Java usage:
+CompletableFuture<Unit> future = nodeCheckAsync { nodeList ->
+    // nodeList will contain the updated list of nodes with their health status and speed
+}
+
+// After performing the health check, get the fastest node:
 val fastestNode = getFastestNode()
 ```
 
@@ -60,6 +65,42 @@ val transformedUrl = transform(ipfsLink, fastestNode)
 // Use transformedUrl to fetch the data from IPFS
 ```
 
+### Adding Custom Gateways
+
+The library comes with a default list of IPFS gateways, but you can add your own gateways to be included in the health checks:
+
+The default gateways include: w3s.link, dweb.link, cf-ipfs.com, 4everland.io, gw3.io, storry.tv, and nftstorage.link. 
+All default gateways use HTTPS and are configured as remote nodes (remote=true).
+
+> **Understanding Remote Nodes**: 
+> A "remote" node typically refers to a public IPFS gateway that uses special security features. When remote=true:
+> - The gateway uses HTTPS for secure connections
+> - For certain IPFS content, it will use subdomain-style URLs (like `bafybei...ipfs.dweb.link`) instead of path-style URLs
+> - This subdomain approach helps enforce browser security rules for each piece of content
+>
+> Set remote=false for local gateways (like `localhost`) or private gateways where you don't need these security features.
+
+```kotlin
+// Add a custom gateway
+addNode(Node(
+    host = "your-gateway.com",
+    remote = true,  // Use HTTPS and subdomain security (for public gateways)
+    hot = false     // true if this is a "hot" node that should get a speed bonus
+))
+
+// You might want to add local or private gateways
+addNode(Node(
+    host = "localhost",
+    port = 8080,
+    remote = false  // Use HTTP, no subdomain security (for local/private nodes)
+))
+```
+
+Adding nodes is useful when you:
+- Have your own IPFS gateway
+- Want to use a local node
+- Know of other public gateways not in the default list
+- Need to use specific gateways for your use case
 
 ### Contribution
 
