@@ -47,6 +47,8 @@ var defaultNodeList: List<Node> = listOf(
     Node(host = "nftstorage.link")
 )
 
+var customNodeList = mutableListOf<Node>()
+
 /** Callback type for nodeCheck. */
 typealias NodeCheckCallback = (List<Node>) -> Unit
 
@@ -54,12 +56,19 @@ typealias NodeCheckCallback = (List<Node>) -> Unit
 var nodeList: List<Node> = emptyList()
 
 /**
- * Adds a new node to the defaultNodeList.
+ * Adds a new node to the customNodeList.
  *
  * @param node The node to be added.
  */
 fun addNode(node: Node) {
-    defaultNodeList = defaultNodeList + node
+    customNodeList.add(node)
+}
+
+/**
+ * Clears the customNodeList.
+ */
+fun clearCustomNodes() {
+    customNodeList.clear()
 }
 
 /**
@@ -112,7 +121,7 @@ suspend fun nodeCheck(callback: NodeCheckCallback? = null) {
         }
     }
 
-    nodeList = defaultNodeList.pmap {
+    nodeList = (defaultNodeList + customNodeList).pmap {
         healthCheck(client, it)
     }
 

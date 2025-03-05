@@ -26,7 +26,7 @@ class IpfsGatewayUtilsInstrumentedTest {
 
     @Test
     fun testUrlTransformation() {
-        val node = Node(host = "example.com", remote = true)
+        val node = Node(host = "example.com", useHttps = true)
         val transformedUrl = transform("ipfs://QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A", node)
         assertEquals("https://example.com/ipfs/QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A", transformedUrl)
     }
